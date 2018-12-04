@@ -1,0 +1,58 @@
+Divisions 32
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 1920
+Gpu Test 1.0232 ms
+Cpu Test: 0.012260 ms 
+Results were equal
+Divisions 64
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 3840
+Gpu Test 1.2535 ms
+Cpu Test: 0.021769 ms 
+Results were equal
+Divisions 128
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 7680
+Gpu Test 1.38483 ms
+Cpu Test: 0.038911 ms 
+Results were equal
+Divisions 256
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 15360
+Gpu Test 1.43062 ms
+Cpu Test: 0.072430 ms 
+Results were equal
+Divisions 512
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 30720
+Gpu Test 1.86515 ms
+Cpu Test: 0.142722 ms 
+Results were equal
+Divisions 1024
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 61440
+Gpu Test 2.05728 ms
+Cpu Test: 0.279441 ms 
+Results were equal
+
+32 = .01226
+1024 = .279441
+22.79x
+
+32 = 1.0232
+1024 = 2.05728
+2x
+
+#theoretical
+32768 = 6.3612  cpu
+32768 = 4.1     gpu
+
+my max capability 2147483647
+65535.9999695*6.36 cpu
+4095*4.1           gpu
