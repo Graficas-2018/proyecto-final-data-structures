@@ -1,0 +1,105 @@
+GPU Info
+Name: GeForce GT 750M
+Max Threads Per Block  1024
+Max Threads Size  1024 1024 64
+Max Grid Size 2147483647 65535 65535
+Compute Capability 3
+Divisions 64
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 3840
+About to create 3840
+64 3840
+creation sucessful 3840
+blocks 1threads 64
+Gpu Test 1.03101 ms
+Cpu Test: 0.021451 ms 
+Results were equal
+Divisions 128
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 7680
+About to create 7680
+128 7680
+creation sucessful 7680
+blocks 1threads 128
+Gpu Test 0.688672 ms
+Cpu Test: 0.041455 ms 
+Results were equal
+Divisions 256
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 15360
+About to create 15360
+256 15360
+creation sucessful 15360
+blocks 1threads 256
+Gpu Test 0.90784 ms
+Cpu Test: 0.072772 ms 
+Results were equal
+Divisions 512
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 30720
+About to create 30720
+512 30720
+creation sucessful 30720
+blocks 1threads 512
+Gpu Test 1.30246 ms
+Cpu Test: 0.140625 ms 
+Results were equal
+Divisions 1024
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 61440
+About to create 61440
+1024 61440
+creation sucessful 61440
+blocks 1threads 1024
+Gpu Test 1.8687 ms
+Cpu Test: 0.309221 ms 
+Results were equal
+Divisions 2048
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 122880
+About to create 122880
+2048 122880
+creation sucessful 122880
+blocks 2threads 1024
+Gpu Test 2.68982 ms
+Cpu Test: 0.549966 ms 
+Results were equal
+Divisions 4096
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 245760
+About to create 245760
+4096 245760
+creation sucessful 245760
+blocks 4threads 1024
+Gpu Test 6.07453 ms
+Cpu Test: 1.245429 ms 
+Results were equal
+Divisions 8192
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 491520
+About to create 491520
+8192 491520
+creation sucessful 491520
+blocks 8threads 1024
+Gpu Test 16.2346 ms
+Cpu Test: 2.444411 ms 
+Results were equal
+Divisions 16384
+Max Jobs per Job 3
+Max Jobs size 4
+Max Size 983040
+About to create 983040
+16384 983040
+creation sucessful 983040
+blocks 16threads 1024
+Gpu Test 49.2338 ms
+Cpu Test: 4.611262 ms 
+Results were equal

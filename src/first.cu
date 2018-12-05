@@ -103,7 +103,7 @@ int main(){
 
     int maxThreads = props.maxThreadsPerBlock;
     int maxGridSize = props.maxGridSize[0];
-    for(int i=64;i < 16384;i*=2){
+    for(int i=64;i < maxGridSize/maxThreads;i*=2){
         run(i,maxThreads,maxGridSize);
     }
 }
