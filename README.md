@@ -103,6 +103,7 @@ Sequential penalties within GPU should have gone lower instead of higher outside
 More configurations would have been optimal for the analysis but the code had to be rewritten multiple times and some math operations were bound to fail. Also there are no good indications to continue as the expected positive results have been proven false.
 
 Instead of a lower linear growth,  exponential growth is the most probable
+It is possible that the increase of organizing sequential behavior overruns the gpu at some point or performance affected by heat, as the gpu felt very hot after the runs which increases resistance in circuits. 
 
 The first run results are in [results](results.txt)
 The second run results are in [results](results2.txt)
