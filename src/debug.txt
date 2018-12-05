@@ -53,6 +53,6 @@ Results were equal
 32768 = 6.3612  cpu
 32768 = 4.1     gpu
 
-my max capability 2147483647
+my max capability  2147483647
 65535.9999695*6.36 cpu
 4095*4.1           gpu

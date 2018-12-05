@@ -78,9 +78,38 @@ void create(
     int * params
 ); 
 
+int run(int divisions,int maxThreads,int maxGridSize);
+
 int main(){
+    // We get device information to use
+
+    // GetGPUProperties
+    cudaDeviceProp props; 
+    cudaGetDeviceProperties(&props,0);
+
+    // Get maximum threads, blocks and grids
+    printf("GPU Info\n");
+    printf("Name: %s\n",props.name);
+    printf("Max Threads Per Block  %d\n",props.maxThreadsPerBlock);
+    printf("Max Threads Size  %d %d %d\n",
+        props.maxThreadsDim[0],
+        props.maxThreadsDim[1],
+        props.maxThreadsDim[2]);
+    printf("Max Grid Size %d %d %d\n",
+        props.maxGridSize[0],
+        props.maxGridSize[1],
+        props.maxGridSize[2]);
+    printf("Compute Capability %d\n",props.major);
+
+    int maxThreads = props.maxThreadsPerBlock;
+    int maxGridSize = props.maxGridSize[0];
+    for(int i=64;i < 16384;i*=2){
+        run(i,maxThreads,maxGridSize);
+    }
+}
+int run(int divisions,int maxThreads,int maxGridSize){
+
     // We setup variables, divisions are for the number of parallel jobs in gpu
-    int divisions = 2048;
     int maxJobsPerJob = 3;
     int maxJobSize = 4;
     
@@ -106,13 +135,14 @@ int main(){
     int * inputSizesGPU;
     int * outputSizesGPU; 
 
-    // std::cout << "About to create " << maxSize << std::endl;
+    std::cout << "About to create " << maxSize << std::endl;
     // We create random jobs with random inputs 
     // The function will divide on the number of jobs, with variable sizes
     // but with space left over
+    memset(inputSizesCPU,0,sizeof(int)*divisions);
     create(inputCPU,inputSizesCPU,&params[0]);
 
-    // std::cout << "creation sucessful " << maxSize << std::endl;
+    std::cout << "creation sucessful " << maxSize << std::endl;
     // debugging
     /*
     for(int i=0;i<maxSize;i++){
@@ -152,9 +182,9 @@ int main(){
 
 
     // Clearing output arrays 
-    /*std::cout << " "<< */ cudaMemset(outputGPU,0,maxSize*sizeof(int));
-    /*std::cout << " "<< */ cudaMemset(outputSizesGPU,0,divisions*sizeof(int));
-   // std::cout << std::endl;
+    /* std::cout << " "<< */  cudaMemset(outputGPU,0,maxSize*sizeof(int));
+    /* std::cout << " "<<  */cudaMemset(outputSizesGPU,0,divisions*sizeof(int));
+    // std::cout << std::endl;
 
     // We setup events to measure
     cudaEvent_t start, end;
@@ -165,7 +195,18 @@ int main(){
     // We run the kernel and measure
     //std::cout << "kernel launched " << cudaGetLastError() <<std::endl;
     cudaEventRecord(start);
-    handleJobs<<<1,divisions>>>(
+    int threads; 
+    int blocks; 
+    if(divisions < maxThreads){
+        threads = divisions;
+        blocks = 1;
+    }
+    else{
+        threads = maxThreads;
+        blocks = divisions/maxThreads;
+    }
+    std::cout << "blocks " << blocks << "threads " << threads <<std::endl;
+    handleJobs<<<blocks,threads>>>(
         inputGPU,
         inputSizesGPU,
         outputGPU,
@@ -333,7 +374,7 @@ void handleJobs(
     int * outputSizes,
     int maxSize
 ){
-    int tid = threadIdx.x;
+    int tid = blockIdx.x*blockDim.x + threadIdx.x;
     Queue * jobs = new Queue(inputData,inputSizes[tid],maxSize,tid);
     Queue * results = new Queue(outputData,outputSizes[tid],maxSize,tid);
     while(!jobs->empty()){
@@ -426,6 +467,7 @@ void create(int * input,int * inputSizes,int * params){
     int maxJobsPerJob = params[1];
     int maxSizePerJob = params[2];
     int maxSize = params[3];
+    std::cout << divisions << " "<< maxSize << std::endl;
     
     srand(time(NULL));
     // Divide max size between divisions maxSizePerJob and maxJobsPerJob to declare upper bound, lower bound is that amount halved
@@ -436,7 +478,7 @@ void create(int * input,int * inputSizes,int * params){
         exit(1);
     }
     for(int i = 0;i<divisions;i++){
-        int start = i*maxSize/divisions;
+        int start = i*(maxSize/divisions);
         int numberOfJobs = rand() % lowerBound + lowerBound; 
         for(int j=0;j<numberOfJobs;j++){
             int type  = rand() % 3 + 1; 
